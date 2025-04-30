@@ -1,0 +1,57 @@
+# Version control
+.git
+.gitignore
+
+# Node.js modules and dependencies
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Development and testing files
+coverage
+tests
+*.test.js
+.vscode
+.idea
+*.md
+!README.md
+
+# Docker files
+.dockerignore
+Dockerfile
+docker-compose*.yml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+logs
+*.tmp
+.tmp
+tmp
+
+# Build artifacts and distributions
+dist
+build
+out
+.webpack
+.serverless
+
+# Documentation (except README.md and OpenAPI spec)
+docs/*.pdf
+docs/*.doc
+docs/*.docx
+!docs/openapi.yaml
+
+# Local development configurations
+nodemon.json
+.eslintrc
+.prettierrc
+.editorconfig

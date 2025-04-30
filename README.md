@@ -1,0 +1,264 @@
+# NodeForge API
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2014.0.0-brightgreen)
+![Test Coverage](https://img.shields.io/badge/coverage-96%25-brightgreen)
+
+A robust, secure, and well-tested RESTful API built with Express.js, featuring authentication, protected routes, and comprehensive test coverage. This sample project demonstrates best practices for building Node.js APIs.
+
+## 📋 Table of Contents
+
+- [NodeForge API](#nodeforge-api)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [✨ Features](#-features)
+  - [🛠 Tech Stack](#-tech-stack)
+  - [📁 Project Structure](#-project-structure)
+  - [🚀 Getting Started](#-getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Environment Variables](#environment-variables)
+  - [🏃‍♂️ Running the Application](#️-running-the-application)
+    - [Development Mode](#development-mode)
+    - [Production Mode](#production-mode)
+  - [📚 API Documentation](#-api-documentation)
+    - [API Endpoints](#api-endpoints)
+      - [Public Endpoints](#public-endpoints)
+      - [Protected Endpoints](#protected-endpoints)
+  - [🧪 Testing](#-testing)
+    - [Running Tests](#running-tests)
+    - [Test Structure](#test-structure)
+  - [📊 Code Coverage](#-code-coverage)
+  - [🤝 Contributing](#-contributing)
+  - [📄 License](#-license)
+  - [🔍 Implementation Details](#-implementation-details)
+    - [Authentication Flow](#authentication-flow)
+    - [Error Handling](#error-handling)
+    - [Security Considerations](#security-considerations)
+
+## ✨ Features
+
+- **Authentication System**: Secure signup and login functionality with JWT
+- **Protected Routes**: Middleware for securing endpoints
+- **API Documentation**: Interactive Swagger UI documentation
+- **Error Handling**: Centralized error handling mechanism
+- **Environment Configuration**: Environment-based configuration
+- **Logging**: HTTP request logging with Morgan
+- **Testing**: Comprehensive test suite with Jest
+- **Code Coverage**: High test coverage (>95%)
+
+## 🛠 Tech Stack
+
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Authentication**: JSON Web Tokens (JWT)
+- **API Documentation**: Swagger UI + OpenAPI
+- **Logging**: Morgan
+- **Testing**: Jest + Supertest
+- **Environment Variables**: dotenv
+
+## 📁 Project Structure
+
+The project follows a feature-based structure for better organization and scalability:
+
+```
+.
+├── docs/                  # Documentation files
+│   └── openapi.yaml       # OpenAPI/Swagger specification
+├── src/                   # Source code
+│   ├── api/               # API entry point
+│   │   └── index.js       # Express app setup and server initialization
+│   ├── config/            # Configuration files
+│   │   └── index.js       # Environment variables and app configuration
+│   ├── core/              # Core components
+│   │   ├── errorHandler.js # Global error handling middleware
+│   │   └── logger.js      # HTTP request logger
+│   └── features/          # Feature modules
+│       └── auth/          # Authentication feature
+│           ├── controllers/ # Request handlers
+│           ├── middleware/  # Auth middleware
+│           ├── repositories/ # Data access layer
+│           ├── routes/      # Route definitions
+│           └── services/    # Business logic
+├── tests/                 # Test files
+│   ├── unit/              # Unit tests
+│   │   ├── api/           # API tests
+│   │   ├── core/          # Core component tests
+│   │   └── features/      # Feature tests
+│   ├── auth.test.js       # Authentication integration tests
+│   └── root.test.js       # Root endpoint tests
+├── .env                   # Environment variables (not in version control)
+├── .gitignore             # Git ignore file
+├── nodemon.json           # Nodemon configuration
+├── package.json           # Project dependencies and scripts
+└── README.md              # Project documentation
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/cristianoaredes/projeto-marcal.git
+   cd projeto-marcal
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+PORT=3001
+JWT_SECRET=your_jwt_secret_key
+```
+
+## 🏃‍♂️ Running the Application
+
+### Development Mode
+
+```bash
+npm run dev
+```
+
+This will start the server with nodemon for automatic reloading on file changes.
+
+### Production Mode
+
+```bash
+npm start
+```
+
+## 📚 API Documentation
+
+Once the application is running, you can access the Swagger UI documentation at:
+
+```
+http://localhost:3001/docs
+```
+
+### API Endpoints
+
+| Method | Endpoint | Description | Authentication |
+|--------|----------|-------------|----------------|
+| GET | / | API status check | No |
+| POST | /auth/signup | Create a new user | No |
+| POST | /auth/login | Authenticate user and get token | No |
+| GET | /protected | Access protected resource | Yes |
+
+#### Public Endpoints
+
+- `POST /auth/signup`
+  Request body:
+  ```json
+  { "email": "user@example.com", "password": "password123" }
+  ```
+  Response:
+  ```json
+  { "email": "user@example.com" }
+  ```
+
+- `POST /auth/login`
+  Request body:
+  ```json
+  { "email": "user@example.com", "password": "password123" }
+  ```
+  Response:
+  ```json
+  { "token": "<JWT token>" }
+  ```
+
+- `GET /`
+  Returns `API is running`
+
+#### Protected Endpoints
+
+- `GET /protected`
+  Requires header:
+  ```
+  Authorization: Bearer <token>
+  ```
+  Response:
+  ```json
+  {
+    "message": "Protected resource",
+    "user": { "email": "user@example.com" }
+  }
+  ```
+
+## 🧪 Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests with coverage report
+npm test -- --coverage
+```
+
+### Test Structure
+
+- **Unit Tests**: Test individual components in isolation
+- **Integration Tests**: Test API endpoints and their interactions
+
+## 📊 Code Coverage
+
+The project maintains high test coverage:
+
+- **Statements**: 96.84%
+- **Branches**: 83.33%
+- **Functions**: 92.3%
+- **Lines**: 96.8%
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 🔍 Implementation Details
+
+### Authentication Flow
+
+1. **Signup**: Users register with email and password
+2. **Login**: Users authenticate and receive a JWT token
+3. **Protected Routes**: JWT token is verified for access to protected resources
+
+### Error Handling
+
+The application uses a centralized error handling mechanism that:
+
+- Captures all errors thrown in async/await functions
+- Returns appropriate HTTP status codes
+- Provides meaningful error messages
+
+### Security Considerations
+
+- Passwords should be hashed before storage in a production environment
+- JWT secrets should be strong and kept secure
+- Environment variables should be properly managed
+
+---
+
+Made with ❤️ by [Cristiano Aredes](https://github.com/cristianoaredes)

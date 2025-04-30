@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "README.md",
+    "TODO.md",
+    "PLAN.md",
+    "tests/*"
+  ],
+  "watch": [
+    "src"
+  ]
+}
