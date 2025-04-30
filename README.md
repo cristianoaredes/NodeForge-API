@@ -3,6 +3,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2014.0.0-brightgreen)
 ![Test Coverage](https://img.shields.io/badge/coverage-96%25-brightgreen)
+![Docker](https://img.shields.io/badge/docker-ready-blue)
 
 A robust, secure, and well-tested RESTful API built with Express.js, featuring authentication, protected routes, and comprehensive test coverage. This sample project demonstrates best practices for building Node.js APIs.
 
@@ -20,6 +21,7 @@ A robust, secure, and well-tested RESTful API built with Express.js, featuring a
   - [🏃‍♂️ Running the Application](#️-running-the-application)
     - [Development Mode](#development-mode)
     - [Production Mode](#production-mode)
+    - [Docker](#docker)
   - [📚 API Documentation](#-api-documentation)
     - [API Endpoints](#api-endpoints)
       - [Public Endpoints](#public-endpoints)
@@ -34,6 +36,8 @@ A robust, secure, and well-tested RESTful API built with Express.js, featuring a
     - [Authentication Flow](#authentication-flow)
     - [Error Handling](#error-handling)
     - [Security Considerations](#security-considerations)
+    - [Docker Configuration](#docker-configuration)
+  - [📱 GitHub Repository](#-github-repository)
 
 ## ✨ Features
 
@@ -45,6 +49,8 @@ A robust, secure, and well-tested RESTful API built with Express.js, featuring a
 - **Logging**: HTTP request logging with Morgan
 - **Testing**: Comprehensive test suite with Jest
 - **Code Coverage**: High test coverage (>95%)
+- **Docker Support**: Containerized deployment with secure Alpine Linux image
+- **CI/CD Ready**: Easy integration with CI/CD pipelines
 
 ## 🛠 Tech Stack
 
@@ -55,6 +61,7 @@ A robust, secure, and well-tested RESTful API built with Express.js, featuring a
 - **Logging**: Morgan
 - **Testing**: Jest + Supertest
 - **Environment Variables**: dotenv
+- **Containerization**: Docker + Docker Compose
 
 ## 📁 Project Structure
 
@@ -99,13 +106,14 @@ The project follows a feature-based structure for better organization and scalab
 
 - Node.js (v14 or higher)
 - npm (v6 or higher)
+- Docker (optional, for containerized deployment)
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/cristianoaredes/projeto-marcal.git
-   cd projeto-marcal
+   git clone https://github.com/cristianoaredes/NodeForge-API.git
+   cd NodeForge-API
    ```
 
 2. Install dependencies:
@@ -137,6 +145,27 @@ This will start the server with nodemon for automatic reloading on file changes.
 ```bash
 npm start
 ```
+
+### Docker
+
+You can also run the application using Docker:
+
+```bash
+# Build and start the container
+docker-compose up -d
+
+# View logs
+docker logs projeto-marcal-api
+
+# Stop the container
+docker-compose down
+```
+
+The Docker setup includes:
+- Multi-stage builds for smaller images
+- Non-root user for improved security
+- Alpine Linux base image with minimal vulnerabilities
+- Health checks for container monitoring
 
 ## 📚 API Documentation
 
@@ -258,6 +287,28 @@ The application uses a centralized error handling mechanism that:
 - Passwords should be hashed before storage in a production environment
 - JWT secrets should be strong and kept secure
 - Environment variables should be properly managed
+- Docker container runs as a non-root user for added security
+- Alpine Linux image with minimal attack surface
+
+### Docker Configuration
+
+The application is containerized with Docker using best practices:
+
+- **Multi-stage builds**: Separates build dependencies from runtime dependencies
+- **Security**: Runs as non-root user (nodejs)
+- **Base Image**: Uses Alpine Linux for minimal size and security vulnerabilities
+- **Health Checks**: Configured to monitor container health
+- **Docker Compose**: Easy orchestration with `docker-compose.yml`
+
+## 📱 GitHub Repository
+
+The project is hosted on GitHub at [https://github.com/cristianoaredes/NodeForge-API](https://github.com/cristianoaredes/NodeForge-API).
+
+Feel free to:
+- Star the repository if you find it useful
+- Fork it to create your own version
+- Submit issues or pull requests to contribute
+- Use it as a template for your own Node.js API projects
 
 ---
 
