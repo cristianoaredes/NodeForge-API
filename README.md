@@ -30,13 +30,17 @@ A robust, secure, and well-tested RESTful API built with Express.js, featuring a
     - [Running Tests](#running-tests)
     - [Test Structure](#test-structure)
   - [📊 Code Coverage](#-code-coverage)
-  - [🤝 Contributing](#-contributing)
-  - [📄 License](#-license)
   - [🔍 Implementation Details](#-implementation-details)
     - [Authentication Flow](#authentication-flow)
     - [Error Handling](#error-handling)
     - [Security Considerations](#security-considerations)
     - [Docker Configuration](#docker-configuration)
+  - [🗺️ Roadmap](#️-roadmap)
+    - [Phase 1: Core Infrastructure](#phase-1-core-infrastructure)
+    - [Phase 2: Developer Experience](#phase-2-developer-experience)
+    - [Phase 3: Operational Readiness](#phase-3-operational-readiness)
+  - [🤝 Contributing](#-contributing)
+  - [📄 License](#-license)
   - [📱 GitHub Repository](#-github-repository)
 
 ## ✨ Features
@@ -250,22 +254,6 @@ The project maintains high test coverage:
 - **Functions**: 92.3%
 - **Lines**: 96.8%
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
 ## 🔍 Implementation Details
 
 ### Authentication Flow
@@ -299,6 +287,96 @@ The application is containerized with Docker using best practices:
 - **Base Image**: Uses Alpine Linux for minimal size and security vulnerabilities
 - **Health Checks**: Configured to monitor container health
 - **Docker Compose**: Easy orchestration with `docker-compose.yml`
+
+## 🗺️ Roadmap
+
+The following roadmap outlines the planned enhancements to transform this project into a fully production-ready API base:
+
+### Phase 1: Core Infrastructure
+
+**Database Integration**
+- Implementation of ORM/ODM with Mongoose or Sequelize
+- Proper connection pooling and error handling
+- Database migration capabilities
+- Transition from in-memory to database storage
+
+**Enhanced Security**
+- CORS configuration and security headers with Helmet
+- Rate limiting for public endpoints
+- CSRF protection
+- Advanced password hashing
+- IP-based blocking for failed auth attempts
+
+**Advanced Validation**
+- Request validation using Joi or express-validator
+- Custom error messages for validation failures
+- Integration with OpenAPI documentation
+
+**Enhanced Logging & Monitoring**
+- Structured, level-based logging with Winston or Pino
+- Request ID tracking across request lifecycle
+- Health check endpoints with detailed status monitoring
+- Performance metrics collection
+
+### Phase 2: Developer Experience
+
+**API Versioning**
+- Implementation of versioning strategy (URL, header, or content negotiation)
+- Route structure supporting multiple API versions
+- Version-specific documentation
+- Upgrade path guidance for API consumers
+
+**Documentation Enhancements**
+- Enhanced Swagger/OpenAPI documentation with examples
+- Postman collection for API testing
+- Architecture diagrams
+- Code documentation standards
+- Developer onboarding guide
+
+**Environment Configuration**
+- Robust environment variable validation
+- Environment-specific configurations
+- Secure secrets management
+- Comprehensive setup documentation
+
+### Phase 3: Operational Readiness
+
+**CI/CD Pipeline**
+- Automated testing with GitHub Actions
+- Linting and code quality checks
+- Security vulnerability scanning
+- Automated Docker image building and publishing
+- Deployment workflow automation
+
+**Caching Layer**
+- Implementation of Redis or in-memory caching
+- TTL-based cache management
+- Cache invalidation strategies
+- Distributed caching support
+- Rate limit optimization
+
+**Error Handling Improvements**
+- Standardized error response structure
+- Custom error classes for different scenarios
+- Centralized error codes and messages
+- Localization support for error messages
+- Enhanced error context logging
+
+For a detailed breakdown of these enhancements, see the [PLAN.md](PLAN.md) and [TODO.md](TODO.md) files in the repository.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 📱 GitHub Repository
 
