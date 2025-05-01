@@ -41,6 +41,9 @@ A robust, secure, and well-tested RESTful API built with Express.js, featuring a
     - [Phase 3: Operational Readiness](#phase-3-operational-readiness)
   - [🤝 Contributing](#-contributing)
   - [📄 License](#-license)
+  - [📫 Contact](#-contact)
+  - [⭐ Show Your Support](#-show-your-support)
+  - [📝 Citation](#-citation)
   - [📱 GitHub Repository](#-github-repository)
 
 ## ✨ Features
@@ -378,6 +381,36 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## 📫 Contact
+
+For suggestions, questions, or contributions:
+
+- 📧 Email: cristiano@aredes.me
+- 💼 LinkedIn: [Cristiano Aredes](https://www.linkedin.com/in/cristianoaredes/)
+
+## ⭐ Show Your Support
+
+If this project has helped you in any way, consider:
+
+- ⭐ Giving it a star on GitHub
+- 🐛 Reporting bugs or suggesting improvements in [Issues](https://github.com/cristianoaredes/NodeForge-API/issues)
+- 🔀 Forking and contributing to the project
+- 📢 Sharing it with other developers
+
+## 📝 Citation
+
+If you use this project as a reference in articles or studies, please cite:
+
+```bibtex
+@software{nodeforge_api,
+  author = {Cristiano Aredes},
+  title = {NodeForge API},
+  year = {2025},
+  publisher = {GitHub},
+  url = {https://github.com/cristianoaredes/NodeForge-API}
+}
+```
+
 ## 📱 GitHub Repository
 
 The project is hosted on GitHub at [https://github.com/cristianoaredes/NodeForge-API](https://github.com/cristianoaredes/NodeForge-API).
@@ -387,6 +420,10 @@ Feel free to:
 - Fork it to create your own version
 - Submit issues or pull requests to contribute
 - Use it as a template for your own Node.js API projects
+
+---
+
+🔍 **Keywords:** nodejs, express, api, rest, jwt, authentication, docker, testing, swagger, openapi, clean-architecture, feature-based
 
 ---
 
