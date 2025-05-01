@@ -1,50 +1,54 @@
 version: '3.8'
 
 services:
+  # API Service
   api:
     build:
       context: .
       dockerfile: Dockerfile
-    image: projeto-marcal-api
-    container_name: projeto-marcal-api
-    restart: unless-stopped
-    ports:
-      - "3001:3001"
+    image: nodeforge-api
+    container_name: nodeforge-api
+    restart: always
     environment:
       - NODE_ENV=production
       - PORT=3001
-      - JWT_SECRET=your_secure_jwt_secret_for_docker
+      - JWT_SECRET=your_jwt_secret_key
+    ports:
+      - "3001:3001"
     volumes:
-      # For logs and persistent data
       - ./logs:/usr/src/app/logs
+    networks:
+      - app-network
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:3001/"]
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 5s
-    networks:
-      - app-network
 
-  # You can uncomment and add a database service when needed
+  # Uncomment this service to add a database
   # db:
-  #   image: mongo:5
-  #   container_name: projeto-marcal-db
-  #   restart: unless-stopped
-  #   ports:
-  #     - "27017:27017"
+  #   image: postgres:14-alpine
+  #   container_name: nodeforge-db
+  #   restart: always
   #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=root
-  #     - MONGO_INITDB_ROOT_PASSWORD=example
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=nodeforge
   #   volumes:
-  #     - dbdata:/data/db
+  #     - pgdata:/var/lib/postgresql/data
   #   networks:
   #     - app-network
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 
 networks:
   app-network:
     driver: bridge
 
-# Uncomment when using database
+# Volumes for database persistence
 # volumes:
-#   dbdata:
+#   pgdata:

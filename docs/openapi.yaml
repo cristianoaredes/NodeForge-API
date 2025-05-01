@@ -1,14 +1,79 @@
 openapi: 3.1.0
 info:
-  title: Projeto Marcal API
+  title: NodeForge API
   version: 1.0.0
-  description: API documentation for Projeto Marcal using JWT authentication.
+  description: API documentation for NodeForge API using JWT authentication.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
 servers:
   - url: http://localhost:3001
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+    
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    
+    SignupRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        statusCode:
+          type: integer
+
 paths:
   /:
     get:
-      summary: Health check
+      summary: API Health Check
+      description: Returns a simple message to check if the API is running
+      security: []
       responses:
         '200':
           description: API is running
@@ -16,72 +81,71 @@ paths:
             text/plain:
               schema:
                 type: string
+                example: API is running
+  
   /auth/signup:
     post:
-      summary: Register a new user
+      summary: Create a new user
+      description: Register a new user with email and password
+      security: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-              required:
-                - email
-                - password
+              $ref: '#/components/schemas/SignupRequest'
       responses:
         '201':
-          description: User created
+          description: User created successfully
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  email:
-                    type: string
+                $ref: '#/components/schemas/User'
         '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
           description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
   /auth/login:
     post:
-      summary: Login and get JWT token
+      summary: Log in
+      description: Authenticate user and return JWT token
+      security: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-              required:
-                - email
-                - password
+              $ref: '#/components/schemas/LoginRequest'
       responses:
         '200':
-          description: JWT token
+          description: Login successful
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  token:
-                    type: string
+                $ref: '#/components/schemas/LoginResponse'
         '401':
           description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
   /protected:
     get:
-      summary: Access protected resource
-      security:
-        - bearerAuth: []
+      summary: Protected resource
+      description: Example of a protected endpoint that requires authentication
       responses:
         '200':
-          description: Protected resource
+          description: Access to protected resource
           content:
             application/json:
               schema:
@@ -90,16 +154,10 @@ paths:
                   message:
                     type: string
                   user:
-                    type: object
-                    properties:
-                      email:
-                        type: string
+                    $ref: '#/components/schemas/User'
         '401':
           description: Unauthorized
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

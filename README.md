@@ -159,7 +159,7 @@ You can also run the application using Docker:
 docker-compose up -d
 
 # View logs
-docker logs projeto-marcal-api
+docker logs nodeforge-api
 
 # Stop the container
 docker-compose down
