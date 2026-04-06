@@ -1,430 +1,204 @@
-# NodeForge API
+# NodeForge API — Node.js REST API Boilerplate with JWT Authentication
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2014.0.0-brightgreen)
+![Node.js](https://img.shields.io/badge/node-%3E%3D%2014.0.0-brightgreen)
 ![Test Coverage](https://img.shields.io/badge/coverage-96%25-brightgreen)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
 
-A robust, secure, and well-tested RESTful API built with Express.js, featuring authentication, protected routes, and comprehensive test coverage. This sample project demonstrates best practices for building Node.js APIs.
+A production-ready **Node.js REST API starter** built with Express.js. Ships with JWT authentication, protected routes, Swagger docs, centralized error handling, and a 96%+ test coverage suite — ready to clone and build on.
 
-## 📋 Table of Contents
+## What is this?
 
-- [NodeForge API](#nodeforge-api)
-  - [📋 Table of Contents](#-table-of-contents)
-  - [✨ Features](#-features)
-  - [🛠 Tech Stack](#-tech-stack)
-  - [📁 Project Structure](#-project-structure)
-  - [🚀 Getting Started](#-getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Environment Variables](#environment-variables)
-  - [🏃‍♂️ Running the Application](#️-running-the-application)
-    - [Development Mode](#development-mode)
-    - [Production Mode](#production-mode)
-    - [Docker](#docker)
-  - [📚 API Documentation](#-api-documentation)
-    - [API Endpoints](#api-endpoints)
-      - [Public Endpoints](#public-endpoints)
-      - [Protected Endpoints](#protected-endpoints)
-  - [🧪 Testing](#-testing)
-    - [Running Tests](#running-tests)
-    - [Test Structure](#test-structure)
-  - [📊 Code Coverage](#-code-coverage)
-  - [🔍 Implementation Details](#-implementation-details)
-    - [Authentication Flow](#authentication-flow)
-    - [Error Handling](#error-handling)
-    - [Security Considerations](#security-considerations)
-    - [Docker Configuration](#docker-configuration)
-  - [🗺️ Roadmap](#️-roadmap)
-    - [Phase 1: Core Infrastructure](#phase-1-core-infrastructure)
-    - [Phase 2: Developer Experience](#phase-2-developer-experience)
-    - [Phase 3: Operational Readiness](#phase-3-operational-readiness)
-  - [🤝 Contributing](#-contributing)
-  - [📄 License](#-license)
-  - [📫 Contact](#-contact)
-  - [⭐ Show Your Support](#-show-your-support)
-  - [📝 Citation](#-citation)
-  - [📱 GitHub Repository](#-github-repository)
+NodeForge API is an **Express.js boilerplate** designed to eliminate the repetitive setup work when starting a new REST API. It provides a clean, feature-based project structure with a working **JWT authentication** flow out of the box, so you can focus on your domain logic instead of plumbing.
 
-## ✨ Features
+Use it as a **Node.js starter** for side projects, internal tools, or as a reference implementation of API best practices.
 
-- **Authentication System**: Secure signup and login functionality with JWT
-- **Protected Routes**: Middleware for securing endpoints
-- **API Documentation**: Interactive Swagger UI documentation
-- **Error Handling**: Centralized error handling mechanism
-- **Environment Configuration**: Environment-based configuration
-- **Logging**: HTTP request logging with Morgan
-- **Testing**: Comprehensive test suite with Jest
-- **Code Coverage**: High test coverage (>95%)
-- **Docker Support**: Containerized deployment with secure Alpine Linux image
-- **CI/CD Ready**: Easy integration with CI/CD pipelines
+## Features
 
-## 🛠 Tech Stack
+- **JWT Authentication** — signup, login, and token verification with `jsonwebtoken`
+- **Protected Routes** — Bearer token middleware that guards any endpoint you choose
+- **Swagger / OpenAPI Docs** — interactive API documentation served at `/docs`
+- **Centralized Error Handling** — single error handler middleware; async errors propagate cleanly
+- **HTTP Request Logging** — Morgan middleware logs every request
+- **High Test Coverage** — 96%+ statement coverage with Jest + Supertest (unit and integration tests)
+- **Docker Support** — multi-stage Alpine Linux image, non-root user, health check included
+- **Environment Configuration** — `dotenv`-based config; one `.env` file controls everything
+- **Feature-Based Structure** — controllers, services, repositories, and routes are co-located per feature
 
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Authentication**: JSON Web Tokens (JWT)
-- **API Documentation**: Swagger UI + OpenAPI
-- **Logging**: Morgan
-- **Testing**: Jest + Supertest
-- **Environment Variables**: dotenv
-- **Containerization**: Docker + Docker Compose
+## Tech Stack
 
-## 📁 Project Structure
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js (v14+) |
+| Framework | Express.js v5 |
+| Authentication | JSON Web Tokens (jsonwebtoken) |
+| API Docs | Swagger UI + OpenAPI 3 |
+| Logging | Morgan |
+| Testing | Jest + Supertest |
+| Containerization | Docker + Docker Compose |
 
-The project follows a feature-based structure for better organization and scalability:
+## Project Structure
 
 ```
-.
-├── docs/                  # Documentation files
-│   └── openapi.yaml       # OpenAPI/Swagger specification
-├── src/                   # Source code
-│   ├── api/               # API entry point
-│   │   └── index.js       # Express app setup and server initialization
-│   ├── config/            # Configuration files
-│   │   └── index.js       # Environment variables and app configuration
-│   ├── core/              # Core components
-│   │   ├── errorHandler.js # Global error handling middleware
-│   │   └── logger.js      # HTTP request logger
-│   └── features/          # Feature modules
-│       └── auth/          # Authentication feature
-│           ├── controllers/ # Request handlers
-│           ├── middleware/  # Auth middleware
-│           ├── repositories/ # Data access layer
-│           ├── routes/      # Route definitions
-│           └── services/    # Business logic
-├── tests/                 # Test files
-│   ├── unit/              # Unit tests
-│   │   ├── api/           # API tests
-│   │   ├── core/          # Core component tests
-│   │   └── features/      # Feature tests
-│   ├── auth.test.js       # Authentication integration tests
-│   └── root.test.js       # Root endpoint tests
-├── .env                   # Environment variables (not in version control)
-├── .gitignore             # Git ignore file
-├── nodemon.json           # Nodemon configuration
-├── package.json           # Project dependencies and scripts
-└── README.md              # Project documentation
+NodeForge-API/
+├── docs/
+│   └── openapi.yaml          # OpenAPI 3 spec (served at /docs)
+├── src/
+│   ├── api/
+│   │   └── index.js          # Express app bootstrap
+│   ├── config/
+│   │   └── index.js          # Environment variable config
+│   ├── core/
+│   │   ├── errorHandler.js   # Global error handler middleware
+│   │   └── logger.js         # Morgan HTTP logger
+│   └── features/
+│       └── auth/
+│           ├── controllers/  # Request handlers
+│           ├── middleware/   # JWT auth middleware
+│           ├── repositories/ # In-memory user store
+│           ├── routes/       # Route definitions
+│           └── services/     # Business logic
+├── tests/
+│   ├── unit/                 # Unit tests per layer
+│   ├── auth.test.js          # Auth integration tests
+│   └── root.test.js          # Root endpoint test
+├── Dockerfile
+├── docker-compose.yml
+└── package.json
 ```
 
-## 🚀 Getting Started
+## Installation
 
-### Prerequisites
+**Prerequisites:** Node.js v14+, npm v6+
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
-- Docker (optional, for containerized deployment)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/cristianoaredes/NodeForge-API.git
-   cd NodeForge-API
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/cristianoaredes/NodeForge-API.git
+cd NodeForge-API
+npm install
+```
 
 ### Environment Variables
 
-Create a `.env` file in the root directory with the following variables:
+Create a `.env` file in the project root:
 
 ```
 PORT=3001
-JWT_SECRET=your_jwt_secret_key
+JWT_SECRET=your_strong_secret_here
 ```
 
-## 🏃‍♂️ Running the Application
-
-### Development Mode
+## Running the Application
 
 ```bash
+# Development (auto-reload with nodemon)
 npm run dev
-```
 
-This will start the server with nodemon for automatic reloading on file changes.
-
-### Production Mode
-
-```bash
+# Production
 npm start
 ```
 
 ### Docker
 
-You can also run the application using Docker:
-
 ```bash
-# Build and start the container
+# Build and start
 docker-compose up -d
 
 # View logs
 docker logs nodeforge-api
 
-# Stop the container
+# Stop
 docker-compose down
 ```
 
-The Docker setup includes:
-- Multi-stage builds for smaller images
-- Non-root user for improved security
-- Alpine Linux base image with minimal vulnerabilities
-- Health checks for container monitoring
+The Docker image uses multi-stage builds, runs as a non-root user (`nodejs`), and includes a health check on port 3001.
 
-## 📚 API Documentation
+## API Endpoints
 
-Once the application is running, you can access the Swagger UI documentation at:
+Interactive docs are available at `http://localhost:3001/docs` once the server is running.
 
+| Method | Endpoint | Auth Required | Description |
+|--------|----------|:---:|---|
+| GET | `/` | No | Health check — returns `API is running` |
+| POST | `/auth/signup` | No | Register a new user |
+| POST | `/auth/login` | No | Authenticate and receive a JWT |
+| GET | `/protected` | Yes | Example protected resource |
+
+### Sign up
+
+```bash
+curl -X POST http://localhost:3001/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com", "password": "password123"}'
 ```
-http://localhost:3001/docs
+
+```json
+{ "email": "user@example.com" }
 ```
 
-### API Endpoints
+### Log in
 
-| Method | Endpoint | Description | Authentication |
-|--------|----------|-------------|----------------|
-| GET | / | API status check | No |
-| POST | /auth/signup | Create a new user | No |
-| POST | /auth/login | Authenticate user and get token | No |
-| GET | /protected | Access protected resource | Yes |
+```bash
+curl -X POST http://localhost:3001/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com", "password": "password123"}'
+```
 
-#### Public Endpoints
+```json
+{ "token": "<JWT>" }
+```
 
-- `POST /auth/signup`
-  Request body:
-  ```json
-  { "email": "user@example.com", "password": "password123" }
-  ```
-  Response:
-  ```json
-  { "email": "user@example.com" }
-  ```
+### Access a protected route
 
-- `POST /auth/login`
-  Request body:
-  ```json
-  { "email": "user@example.com", "password": "password123" }
-  ```
-  Response:
-  ```json
-  { "token": "<JWT token>" }
-  ```
+```bash
+curl http://localhost:3001/protected \
+  -H "Authorization: Bearer <JWT>"
+```
 
-- `GET /`
-  Returns `API is running`
+```json
+{
+  "message": "Protected resource",
+  "user": { "email": "user@example.com" }
+}
+```
 
-#### Protected Endpoints
+JWT tokens expire after **1 hour**. Missing or invalid tokens return `401 Unauthorized`.
 
-- `GET /protected`
-  Requires header:
-  ```
-  Authorization: Bearer <token>
-  ```
-  Response:
-  ```json
-  {
-    "message": "Protected resource",
-    "user": { "email": "user@example.com" }
-  }
-  ```
-
-## 🧪 Testing
-
-### Running Tests
+## Running Tests
 
 ```bash
 # Run all tests
 npm test
 
-# Run tests with coverage report
+# Run with coverage report
 npm test -- --coverage
 ```
 
-### Test Structure
+### Coverage summary
 
-- **Unit Tests**: Test individual components in isolation
-- **Integration Tests**: Test API endpoints and their interactions
+| Metric | Coverage |
+|---|---|
+| Statements | 96.84% |
+| Branches | 83.33% |
+| Functions | 92.30% |
+| Lines | 96.80% |
 
-## 📊 Code Coverage
+The test suite covers signup, login, protected route access (authorized and unauthorized), and core middleware behavior.
 
-The project maintains high test coverage:
-
-- **Statements**: 96.84%
-- **Branches**: 83.33%
-- **Functions**: 92.3%
-- **Lines**: 96.8%
-
-## 🔍 Implementation Details
-
-### Authentication Flow
-
-1. **Signup**: Users register with email and password
-2. **Login**: Users authenticate and receive a JWT token
-3. **Protected Routes**: JWT token is verified for access to protected resources
-
-### Error Handling
-
-The application uses a centralized error handling mechanism that:
-
-- Captures all errors thrown in async/await functions
-- Returns appropriate HTTP status codes
-- Provides meaningful error messages
-
-### Security Considerations
-
-- Passwords should be hashed before storage in a production environment
-- JWT secrets should be strong and kept secure
-- Environment variables should be properly managed
-- Docker container runs as a non-root user for added security
-- Alpine Linux image with minimal attack surface
-
-### Docker Configuration
-
-The application is containerized with Docker using best practices:
-
-- **Multi-stage builds**: Separates build dependencies from runtime dependencies
-- **Security**: Runs as non-root user (nodejs)
-- **Base Image**: Uses Alpine Linux for minimal size and security vulnerabilities
-- **Health Checks**: Configured to monitor container health
-- **Docker Compose**: Easy orchestration with `docker-compose.yml`
-
-## 🗺️ Roadmap
-
-The following roadmap outlines the planned enhancements to transform this project into a fully production-ready API base:
-
-### Phase 1: Core Infrastructure
-
-**Database Integration**
-- Implementation of ORM/ODM with Mongoose or Sequelize
-- Proper connection pooling and error handling
-- Database migration capabilities
-- Transition from in-memory to database storage
-
-**Enhanced Security**
-- CORS configuration and security headers with Helmet
-- Rate limiting for public endpoints
-- CSRF protection
-- Advanced password hashing
-- IP-based blocking for failed auth attempts
-
-**Advanced Validation**
-- Request validation using Joi or express-validator
-- Custom error messages for validation failures
-- Integration with OpenAPI documentation
-
-**Enhanced Logging & Monitoring**
-- Structured, level-based logging with Winston or Pino
-- Request ID tracking across request lifecycle
-- Health check endpoints with detailed status monitoring
-- Performance metrics collection
-
-### Phase 2: Developer Experience
-
-**API Versioning**
-- Implementation of versioning strategy (URL, header, or content negotiation)
-- Route structure supporting multiple API versions
-- Version-specific documentation
-- Upgrade path guidance for API consumers
-
-**Documentation Enhancements**
-- Enhanced Swagger/OpenAPI documentation with examples
-- Postman collection for API testing
-- Architecture diagrams
-- Code documentation standards
-- Developer onboarding guide
-
-**Environment Configuration**
-- Robust environment variable validation
-- Environment-specific configurations
-- Secure secrets management
-- Comprehensive setup documentation
-
-### Phase 3: Operational Readiness
-
-**CI/CD Pipeline**
-- Automated testing with GitHub Actions
-- Linting and code quality checks
-- Security vulnerability scanning
-- Automated Docker image building and publishing
-- Deployment workflow automation
-
-**Caching Layer**
-- Implementation of Redis or in-memory caching
-- TTL-based cache management
-- Cache invalidation strategies
-- Distributed caching support
-- Rate limit optimization
-
-**Error Handling Improvements**
-- Standardized error response structure
-- Custom error classes for different scenarios
-- Centralized error codes and messages
-- Localization support for error messages
-- Enhanced error context logging
-
-For a detailed breakdown of these enhancements, see the [PLAN.md](PLAN.md) and [TODO.md](TODO.md) files in the repository.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -m "add my feature"`
+4. Push to the branch: `git push origin feature/my-feature`
 5. Open a Pull Request
 
-## 📄 License
+Bug reports and suggestions are welcome in [Issues](https://github.com/cristianoaredes/NodeForge-API/issues).
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
 
-## 📫 Contact
-
-For suggestions, questions, or contributions:
-
-- 📧 Email: cristiano@aredes.me
-- 💼 LinkedIn: [Cristiano Aredes](https://www.linkedin.com/in/cristianoaredes/)
-
-## ⭐ Show Your Support
-
-If this project has helped you in any way, consider:
-
-- ⭐ Giving it a star on GitHub
-- 🐛 Reporting bugs or suggesting improvements in [Issues](https://github.com/cristianoaredes/NodeForge-API/issues)
-- 🔀 Forking and contributing to the project
-- 📢 Sharing it with other developers
-
-## 📝 Citation
-
-If you use this project as a reference in articles or studies, please cite:
-
-```bibtex
-@software{nodeforge_api,
-  author = {Cristiano Aredes},
-  title = {NodeForge API},
-  year = {2025},
-  publisher = {GitHub},
-  url = {https://github.com/cristianoaredes/NodeForge-API}
-}
-```
-
-## 📱 GitHub Repository
-
-The project is hosted on GitHub at [https://github.com/cristianoaredes/NodeForge-API](https://github.com/cristianoaredes/NodeForge-API).
-
-Feel free to:
-- Star the repository if you find it useful
-- Fork it to create your own version
-- Submit issues or pull requests to contribute
-- Use it as a template for your own Node.js API projects
+MIT — see the LICENSE file for details.
 
 ---
 
-🔍 **Keywords:** nodejs, express, api, rest, jwt, authentication, docker, testing, swagger, openapi, clean-architecture, feature-based
+Built by [Cristiano Arêdes](https://github.com/cristianoaredes)
 
----
-
-Made with ❤️ by [Cristiano Aredes](https://github.com/cristianoaredes)
+<!-- SEO: Node.js REST API, Express.js boilerplate, JWT authentication, Node.js starter, REST API template -->
